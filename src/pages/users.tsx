@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "../componets/header";
 import Swal from "sweetalert2";
 import Pagination from "react-js-pagination";
 import Papa from 'papaparse';
@@ -234,113 +233,107 @@ const Users: React.FC = () => {
     }, [list, ids])
 
     return <>
-        <div className="container mt-4">
-            <div className="row">
-                <div className="col-6">
-                    <h5>User Management</h5>
-                </div>
-                <Header />
-                <div className="col-12 mt-5">
-                    <div className="row">
-                        <div className="col-3">
-                            <input type="text" placeholder="Search" value={filter.search} className="form-control" onChange={(e: any) => setFilter((cur) => ({ ...cur, search: e.target.value }))} />
-                        </div>
-                        <div className="col-9 text-end">
-                            <button className="btn btn-primary mx-1" data-toggle="modal" data-target="#exampleModalCenter"> <i className="fa fa-filter" ></i></button>
-                            <button className="btn btn-success mx-1" onClick={() => navigate('/users/add')}><i className="fa fa-plus"></i></button>
-                            <button className="btn btn-success mx-1" onClick={() => exportFile()}><i className="fa fa-download"></i></button>
-                            {ids.length ? <button className="btn btn-danger mx-1" onClick={() => deleteMulty()}><i className="fa fa-trash"></i></button> : ""}
-                        </div>
-                    </div>
-                    <div className="table-responsive mt-4 position-relative">
-                        {tableLoader ? <div className="loader">
-                            <i className="fa fa-spinner fa-spin"></i>
-                        </div> : ""}
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th><input type="checkbox" checked={headerCheck == true} onChange={(e: any) => handleIds("0", 1, e.target.checked)} /></th>
-                                    <th className="c-pointer" onClick={() => setFilter((old) => ({ ...old, sort: 'name', order_by: (filter.order_by == "" ? 'asc' : (filter.order_by == 'asc' ? 'desc' : 'asc')) }))}>Name</th>
-                                    <th className="c-pointer" onClick={() => setFilter((old) => ({ ...old, sort: 'email', order_by: (filter.order_by == "" ? 'asc' : (filter.order_by == 'asc' ? 'desc' : 'asc')) }))}>Email</th>
-                                    <th>Role</th>
-                                    <th>DOB</th>
-                                    <th>Gender</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    list.length ? (
-                                        list.map((data: any, i) => (
-                                            <tr key={i}>
-                                                <td>
-                                                    <input checked={ids.indexOf(data.id) > -1} type="checkbox" onChange={() => handleIds(data.id, 0)} />
-                                                </td>
-                                                <td>{data.name || '-'}</td>
-                                                <td>{data.email || '-'}</td>
-                                                <td>{data?.role?.name || '-'}</td>
-                                                <td>{data.dob || '-'}</td>
-                                                <td>{data.gender_text || '-'}</td>
-                                                <td>{data.status_text || '-'}</td>
-                                                <td>
-                                                    <i
-                                                        className="fa fa-eye c-pointer mx-1"
-                                                        data-toggle="modal"
-                                                        data-target="#userViewModal"
-                                                        onClick={() => getRecordById(data.id)}
-                                                    ></i>
-                                                    <i
-                                                        className="fa fa-edit mx-1 c-pointer"
-                                                        onClick={() => navigate('/users/edit/' + data.id)}
-                                                    ></i>
-                                                    <i
-                                                        className="fa fa-trash mx-1 c-pointer"
-                                                        onClick={() => singleDelete(data.id)}
-                                                    ></i>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )
-                                        : !tableLoader && !list.length ? (
-                                            <tr>
-                                                <td className="text-center" colSpan={8}>
-                                                    <h6>No Data Found</h6>
-                                                </td>
-                                            </tr>
-                                        ) : ""
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
 
-                <div className="col-4" style={{ 'marginLeft': 'auto' }}>
-                    <div className="d-flex justify-content-end">
-                        <div className="mx-3 align-content-center">Rows per Page:</div>
-                        <select style={{ 'width': "80px" }} className="form-select" value={filter.per_page} onChange={(e: any) => setFilter((cur) => ({ ...cur, per_page: e.target.value }))}>
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={15}>15</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="col-1 pt-2 text-center">
-                    {pageData.from ? pageData.from + " - " + pageData.to + " of " + pageData.total : '-'}
-                </div>
+        <div className="col-12 mt-5">
+            <div className="row">
                 <div className="col-3">
-                    <Pagination
-                        activePage={filter.page}
-                        itemsCountPerPage={filter.per_page}
-                        totalItemsCount={pageData.total}
-                        pageRangeDisplayed={5}
-                        onChange={(page: number) => setFilter((old) => ({ ...old, page: page }))}
-                        itemClass="page-item"
-                        linkClass="page-link"
-                    />
+                    <input type="text" placeholder="Search" value={filter.search} className="form-control" onChange={(e: any) => setFilter((cur) => ({ ...cur, search: e.target.value }))} />
+                </div>
+                <div className="col-9 text-end">
+                    <button className="btn btn-primary mx-1" data-toggle="modal" data-target="#exampleModalCenter"> <i className="fa fa-filter" ></i></button>
+                    <button className="btn btn-success mx-1" onClick={() => navigate('/users/add')}><i className="fa fa-plus"></i></button>
+                    <button className="btn btn-success mx-1" onClick={() => exportFile()}><i className="fa fa-download"></i></button>
+                    {ids.length ? <button className="btn btn-danger mx-1" onClick={() => deleteMulty()}><i className="fa fa-trash"></i></button> : ""}
                 </div>
             </div>
+            <div className="table-responsive mt-4 position-relative">
+                {tableLoader ? <div className="loader">
+                    <i className="fa fa-spinner fa-spin"></i>
+                </div> : ""}
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" checked={headerCheck == true} onChange={(e: any) => handleIds("0", 1, e.target.checked)} /></th>
+                            <th className="c-pointer" onClick={() => setFilter((old) => ({ ...old, sort: 'name', order_by: (filter.order_by == "" ? 'asc' : (filter.order_by == 'asc' ? 'desc' : 'asc')) }))}>Name</th>
+                            <th className="c-pointer" onClick={() => setFilter((old) => ({ ...old, sort: 'email', order_by: (filter.order_by == "" ? 'asc' : (filter.order_by == 'asc' ? 'desc' : 'asc')) }))}>Email</th>
+                            <th>Role</th>
+                            <th>DOB</th>
+                            <th>Gender</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            list.length ? (
+                                list.map((data: any, i) => (
+                                    <tr key={i}>
+                                        <td>
+                                            <input checked={ids.indexOf(data.id) > -1} type="checkbox" onChange={() => handleIds(data.id, 0)} />
+                                        </td>
+                                        <td>{data.name || '-'}</td>
+                                        <td>{data.email || '-'}</td>
+                                        <td>{data?.role?.name || '-'}</td>
+                                        <td>{data.dob || '-'}</td>
+                                        <td>{data.gender_text || '-'}</td>
+                                        <td>{data.status_text || '-'}</td>
+                                        <td>
+                                            <i
+                                                className="fa fa-eye c-pointer mx-1"
+                                                data-toggle="modal"
+                                                data-target="#userViewModal"
+                                                onClick={() => getRecordById(data.id)}
+                                            ></i>
+                                            <i
+                                                className="fa fa-edit mx-1 c-pointer"
+                                                onClick={() => navigate('/users/edit/' + data.id)}
+                                            ></i>
+                                            <i
+                                                className="fa fa-trash mx-1 c-pointer"
+                                                onClick={() => singleDelete(data.id)}
+                                            ></i>
+                                        </td>
+                                    </tr>
+                                ))
+                            )
+                                : !tableLoader && !list.length ? (
+                                    <tr>
+                                        <td className="text-center" colSpan={8}>
+                                            <h6>No Data Found</h6>
+                                        </td>
+                                    </tr>
+                                ) : ""
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <div className="col-4" style={{ 'marginLeft': 'auto' }}>
+            <div className="d-flex justify-content-end">
+                <div className="mx-3 align-content-center">Rows per Page:</div>
+                <select style={{ 'width': "80px" }} className="form-select" value={filter.per_page} onChange={(e: any) => setFilter((cur) => ({ ...cur, per_page: e.target.value }))}>
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                </select>
+            </div>
+        </div>
+        <div className="col-1 pt-2 text-center">
+            {pageData.from ? pageData.from + " - " + pageData.to + " of " + pageData.total : '-'}
+        </div>
+        <div className="col-3">
+            <Pagination
+                activePage={filter.page}
+                itemsCountPerPage={filter.per_page}
+                totalItemsCount={pageData.total}
+                pageRangeDisplayed={5}
+                onChange={(page: number) => setFilter((old) => ({ ...old, page: page }))}
+                itemClass="page-item"
+                linkClass="page-link"
+            />
+        </div>
+
 
         <div className="modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="filterModal" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered" role="document">

@@ -8,6 +8,8 @@ import './App.css'
 import Login from './pages/login';
 import Users from './pages/users'
 import AddEdit from './pages/add-edit';
+import NotFound from './pages/not-found';
+import Layout from './componets/layout';
 function App() {
   return (
     <>
@@ -19,11 +21,17 @@ function App() {
       </Helmet>
       <BrowserRouter>
         <Routes>
+          <Route path='/'>
+            <Route path='/' index element={<Login />} />
+          </Route>
 
-          <Route path='/' index element={<Login />} />
-          <Route path='users' index element={<Users />} />
-          <Route path='users/add' index element={<AddEdit />} />
-          <Route path='users/edit/:id' index element={<AddEdit />} />
+          <Route element={<Layout />}>
+            <Route path='users' index element={<Users />} />
+            <Route path='users/add' index element={<AddEdit />} />
+            <Route path='users/edit/:id' index element={<AddEdit />} />
+          </Route>
+
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
