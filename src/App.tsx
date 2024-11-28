@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './App.css'
+import Login from './pages/login';
+import Users from './pages/users'
+import AddEdit from './pages/add-edit';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ToastContainer />
+      <Helmet>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+      </Helmet>
+      <BrowserRouter>
+        <Routes>
+
+          <Route path='/' index element={<Login />} />
+          <Route path='users' index element={<Users />} />
+          <Route path='users/add' index element={<AddEdit />} />
+          <Route path='users/edit/:id' index element={<AddEdit />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
