@@ -227,6 +227,7 @@ const Users: React.FC = () => {
         if (admins.length) {
             for (let b of admins) {
                 if (ids.indexOf(b.id) > -1) flag = true
+                else flag = false
             }
         }
         setIsAdmin(flag)
