@@ -93,14 +93,11 @@ const AddEdit: React.FC = () => {
             if (!singlRecord)
                 formData.append("password", data.password)
 
-
             if (profile.length) {
                 formData.append("profile", profile[0]);
             }
-            console.log(formData)
             if (gallery.length) {
                 for (let i of gallery) {
-                    console.log(i)
                     formData.append("user_galleries[]", i);
                 }
             }

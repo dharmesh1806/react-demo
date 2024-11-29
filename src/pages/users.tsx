@@ -303,7 +303,7 @@ const Users: React.FC = () => {
                                             <h6>No Data Found</h6>
                                         </td>
                                     </tr>
-                                ) : ""
+                                ) : <></>
                         }
                     </tbody>
                 </table>
