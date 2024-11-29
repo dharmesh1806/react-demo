@@ -6,7 +6,7 @@ import type { RootState } from '../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { login } from '../redux/slice'
 const Login: React.FC = () => {
-    const [data, setData] = useState<{ email: string, password: string }>({ email: "admin@gmail.com", password: "123456" })
+    const [data, setData] = useState<{ email: string, password: string }>({ email: "", password: "" })
     const [loader, setLoader] = useState(false)
     const navigate = useNavigate()
     const cred = useSelector((state: RootState) => state)
